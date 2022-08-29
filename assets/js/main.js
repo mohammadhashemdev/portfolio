@@ -1,4 +1,20 @@
 const ageContainer = document.querySelector("#age");
+const overlay = document.querySelector("#overlay");
+const navToggleBtn = document.querySelector(".bi");
+const header = document.querySelector("#header");
+
+// navToggleBtn.addEventListener("click", function () {
+//   overlay.classList.toggle("main-hidden");
+//   // header.style.left = "0px";
+// });
+
+overlay.addEventListener("click", function () {
+  overlay.classList.add("main-hidden");
+  select("body").classList.toggle("mobile-nav-active");
+  navToggleBtn.classList.toggle("bi-list");
+  navToggleBtn.classList.toggle("bi-x");
+});
+
 let date = new Date();
 date = +date.getFullYear();
 
@@ -102,9 +118,19 @@ calcAge(date, 1997);
    * Mobile nav toggle
    */
   on("click", ".mobile-nav-toggle", function (e) {
+    overlay.classList.toggle("main-hidden");
     select("body").classList.toggle("mobile-nav-active");
     this.classList.toggle("bi-list");
     this.classList.toggle("bi-x");
+  });
+
+  /**
+   * overlay toggle
+   */
+  on("click", ".overlay", function (e) {
+    select("body").classList.remove("mobile-nav-active");
+    select(".mobile-nav-toggle").classList.toggle("bi-list");
+    select(".mobile-nav-toggle").classList.toggle("bi-x");
   });
 
   /**
@@ -120,6 +146,7 @@ calcAge(date, 1997);
         let body = select("body");
         if (body.classList.contains("mobile-nav-active")) {
           body.classList.remove("mobile-nav-active");
+          overlay.classList.add("main-hidden");
           let navbarToggle = select(".mobile-nav-toggle");
           navbarToggle.classList.toggle("bi-list");
           navbarToggle.classList.toggle("bi-x");
